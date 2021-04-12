@@ -12,6 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     }
   );
+  Comentario.associate = (models) => {
+    // relação N:1 (vários comentarios para 1 post)
+    Comentario.belongsTo(models.Post, {
+      as: 'post',
+      foreignKey: 'usuarios_id',
+    });
+  };
 
   return Comentario;
 };

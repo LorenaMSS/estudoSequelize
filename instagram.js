@@ -1,8 +1,6 @@
 const { Usuario, Post, Comentario, sequelize } = require('./models');
 const { Op } = require('sequelize');
-const usuario = require('./models/usuario');
-
-Usuario.findAll().then((resultado) => {
+/*Usuario.findAll().then((resultado) => {
   console.table(resultado.map((user) => user.toJSON()));
 });
 
@@ -94,3 +92,13 @@ Comentario.findAll().then((resultado) => {
   console.log(resultado.map((user) => user.toJSON()));
 
 } )*/
+
+Usuario.findByPk(1, { include: ['posts'] }).then((usuario) => {
+  console.table(usuario.toJSON());
+  sequelize.close();
+});
+
+Post.findByPk(1, { include: ['comentario'] }).then((post) => {
+  console.table(post.toJSON());
+  sequelize.close();
+});
